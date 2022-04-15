@@ -6,6 +6,11 @@ jobs:
   convert_via_pandoc:
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@v2
       - uses: docker://pandoc/core:2.9
         with:
           args: "pandoc --from html --to jira --output file2.md file2.html" # gets appended to pandoc command
+      - uses: actions/upload-artifact@master
+        with:
+          name: output
+          path: output
