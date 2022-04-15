@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: docker://pandoc/core:2.9
         with:
-          args: "pandoc --from html --to jira --output ./mdJiraFinal/file1.md ./htmlToBeConverted/file1.html" # gets appended to pandoc command
+          args: "pandoc --from html --to jira --output /mdJiraFinal/file2.md /htmlToBeConverted/file2.html" # gets appended to pandoc command
