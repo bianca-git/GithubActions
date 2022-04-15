@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+        name: Check out files to work on them
       - uses: docker://pandoc/core:2.9
+        name: Convert HTML to Jira MD
         with:
           args: "pandoc --from html --to jira --output file2.md file2.html" # gets appended to pandoc command
+      - uses: actions/download-artifact@v3
+        name: Commit files to repo
+      - name: Display structure of downloaded files
+        run: ls -R
