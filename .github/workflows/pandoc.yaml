@@ -16,9 +16,13 @@ jobs:
         with:
           args: "pandoc --from html --to jira test.html"
       - name: Get result
-        run: echo "${{steps.pandocConvert.outputs.result}}" > test.html
+        run: echo "${{steps.pandocConvert.outputs.result}}" > test.md
       - name: Upload file
         id: uploadFile
         uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: test.md
+          retention-days: 1
       - name: Echo upload location
         run: echo ${{steps.uploadFile.outputs.upload-path}}
