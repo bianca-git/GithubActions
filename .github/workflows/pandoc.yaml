@@ -1,9 +1,6 @@
 name: pandocConvertor
 
-on: 
-  push:
-    paths:
-      - '**.html'
+on: push
 
 jobs:
   convertViaPandoc:
@@ -12,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
         name: Check out files to work on them
       - name: Confirm file names
-        run: echo "${{jobs.convertViaPandoc.with}}"
+        run: echo "${{job.convertViaPandoc.with}}"
       - uses: docker://pandoc/core:2.9
         id: pandocConvert
         name: Convert HTML to Jira MD
