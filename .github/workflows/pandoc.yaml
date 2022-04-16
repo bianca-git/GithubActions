@@ -11,10 +11,8 @@ jobs:
       - uses: docker://pandoc/core:2.9
         name: Convert HTML to Jira MD
         with:
-          args: "pandoc --from html --to jira --output file2.md file2.html" # gets appended to pandoc command
+          args: "pandoc --from html --to jira file2.html" # gets appended to pandoc command
       - uses: actions/download-artifact@v3
         id: download
-        with:
-          name: 'file2.md'
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
