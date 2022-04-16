@@ -1,18 +1,20 @@
 name: pandocConvertor
 
-on: push
+on: 
+  push:
+    paths:
+      - '**.html'
 
 jobs:
   convert_via_pandoc:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         name: Check out files to work on them
       - uses: docker://pandoc/core:2.9
+        id: pandoc-convert
         name: Convert HTML to Jira MD
         with:
-          args: "pandoc --from html --to jira file2.html" # gets appended to pandoc command
-      - uses: actions/download-artifact@v3
-        id: download
-      - name: 'Echo download path'
-        run: echo ${{steps.download.outputs.download-path}}
+          args: "pandoc --from html --to jira file2.html"
+      - name: Get result
+        run: echo "${{steps.pandoc-convert.outputs.result}}"
