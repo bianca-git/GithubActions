@@ -1,0 +1,5 @@
+{
+ "yaml.schemas": {
+  "https://json.schemastore.org/github-action.json": "file:///c%3A/Users/s121840/Desktop/GithubActions/.github/workflows/pandoc.yml"
+ }
+}

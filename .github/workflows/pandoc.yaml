@@ -13,6 +13,8 @@ jobs:
         with:
           args: "pandoc --from html --to jira --output file2.md file2.html" # gets appended to pandoc command
       - uses: actions/download-artifact@v3
-        name: Commit files to repo
-      - name: Display structure of downloaded files
-        run: ls -R
+        id: download
+        with:
+          name: 'file2.md'
+      - name: 'Echo download path'
+        run: echo ${{steps.download.outputs.download-path}}
