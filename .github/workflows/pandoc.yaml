@@ -1,6 +1,9 @@
 name: pandocConvertor
 
-on: push
+on:
+  push:
+    paths:
+      - '**.html'
 
 jobs:
   convertViaPandoc:
@@ -8,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Check out files to work on them
+      - run: mkdir -p ~/output/
       - name: Confirm file names
         run: echo "${{job.convertViaPandoc.with}}"
       - uses: docker://pandoc/core:2.9
@@ -17,7 +21,7 @@ jobs:
           args: >-  # allows you to break string into multiple lines
             --from html 
             --to jira
-            --output=output/test.md 
+            --output=~/output/test.md 
             ${{ steps.files_list.outputs.files }}
       - uses: actions/upload-artifact@master
         with:
