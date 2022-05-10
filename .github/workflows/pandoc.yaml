@@ -22,7 +22,7 @@ jobs:
             --from html 
             --to jira
             --output=~/output/test.md 
-            '**.html'
+            **.html
       - uses: actions/upload-artifact@master
         with:
           name: output
