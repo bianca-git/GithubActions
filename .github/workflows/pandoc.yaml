@@ -2,8 +2,6 @@ name: pandocConvertor
 
 on:
   push
-#     paths:
-#       - '**.html'
 
 jobs:
   convertViaPandoc:
