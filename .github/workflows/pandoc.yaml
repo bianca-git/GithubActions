@@ -1,19 +1,29 @@
 name: pandocConvertor
 
 on:
-  push:
-    paths:
-      - '**.html'
+  push
+#     paths:
+#       - '**.html'
 
 jobs:
   convertViaPandoc:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        id: checked-out
         name: Check out files to work on them
-      - run: mkdir -p ~/output/
       - name: Confirm file names
-        run: echo "${{job.convertViaPandoc.with}}"
+        run: echo "${{steps.checked-out.with}}"
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: '**.html'
+          key: ${{ runner.os }}-${{ hashFiles('**.html') }}
+      - if: ${{ steps.cache.outputs.cache-hit == false }}
+        continue-on-error: true
+      - run: mkdir -p ~/output/
+      - name: Confirm cache names
+        run: echo "${{steps.cache.outputs.with}}"
       - uses: docker://pandoc/core:2.9
         id: pandocConvert
         name: Convert HTML to Jira MD
@@ -22,7 +32,7 @@ jobs:
             --from html 
             --to jira
             --output=~/output/test.md 
-            ~/**.html
+            ${{steps.cache.outputs.with}}
       - uses: actions/upload-artifact@master
         with:
           name: output
