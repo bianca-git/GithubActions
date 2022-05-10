@@ -16,8 +16,6 @@ jobs:
         with:
           path: '**.html'
           key: ${{ runner.os }}-${{ hashFiles('**.html') }}
-      - if: ${{ steps.cache.outputs.cache-hit == false }}
-        continue-on-error: true
       - run: mkdir -p ~/output/
       - name: Confirm cache names
         run: echo "${{steps.cache.outputs.with}}"
