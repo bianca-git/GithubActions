@@ -1,7 +1,6 @@
 name: pandocConvertor
 
-on:
-  push
+on: push
 
 jobs:
   convertViaPandoc:
